@@ -42,7 +42,7 @@
 *
 ***********************************************************************************/
 
- #define TT_SHIELD
+ //#define TT_SHIELD
 
 
 /*** SERIAL DEBUGGING ***************************************************************
@@ -117,7 +117,9 @@
  *  unless you know what you're doing! 
  * 
  ***********************************************************************************/
+
     #define FIRMWARE_VERSION "0.3.35"       //The current firmware version of this TT
+
 
  #ifdef TT_SHIELD
 	const byte START_BUTTON = 7;			// D7  = Digital in - Start button

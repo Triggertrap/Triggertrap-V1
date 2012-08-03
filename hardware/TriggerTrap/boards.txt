@@ -1,0 +1,22 @@
+##############################################################
+
+ttv1.name=Trigger Trap V1.0
+
+ttv1.upload.protocol=arduino
+ttv1.upload.maximum_size=30720
+ttv1.upload.speed=57600
+
+ttv1.bootloader.low_fuses=0xFF
+ttv1.bootloader.high_fuses=0xDA
+ttv1.bootloader.extended_fuses=0x05
+ttv1.bootloader.path=atmega
+ttv1.bootloader.file=ATmegaBOOT_168_atmega328_pro_8MHz.hex
+ttv1.bootloader.unlock_bits=0x3F
+ttv1.bootloader.lock_bits=0x0F
+
+ttv1.build.mcu=atmega328p
+ttv1.build.f_cpu=8000000L
+ttv1.build.core=arduino:arduino
+ttv1.build.variant=arduino:standard
+
+##############################################################
