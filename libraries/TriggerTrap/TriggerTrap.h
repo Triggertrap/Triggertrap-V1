@@ -51,8 +51,8 @@
 #include <utility/light.h>
 #include <utility/trigger.h>
 #include <utility/sound.h>
-#include <utility/timeLapse.h>
-#include <utility/bulbRamp.h>
+#include <utility/timelapse.h>
+#include <utility/BulbRamp.h>
 #include <auxiliary.h>
 
 	const int LASER_TRIG = 0;
