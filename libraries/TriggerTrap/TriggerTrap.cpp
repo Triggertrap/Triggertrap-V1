@@ -26,7 +26,7 @@
  * 
  ***********************************************************************************/
 
-#include "triggerTrap.h"
+#include "TriggerTrap.h"
 
 
 TriggerTrap::TriggerTrap()
