@@ -30,16 +30,16 @@
 #include "bulbRamp.h"
 
 //mode menu title
-const prog_char bulbMenu[] PROGMEM= {"BulbRamp"};
+const char PROGMEM bulbMenu[]= {"BulbRamp"};
 
  //option Menu titles
-const prog_char delta[] PROGMEM="interval";
-const prog_char startdelay[] PROGMEM="delay1st";
-const prog_char duration[] PROGMEM = "duration";
-const prog_char startExposure[] PROGMEM = "start";
-const prog_char endExposure[] PROGMEM = "end";
+const char PROGMEM delta[]="interval";
+const char PROGMEM startdelay[]="delay1st";
+const char PROGMEM duration[] = "duration";
+const char PROGMEM startExposure[] = "start";
+const char PROGMEM endExposure[] = "end";
 
-const prog_char * bulbOptionMenu[] PROGMEM  = 	   //options menu order
+const char PROGMEM * const bulbOptionMenu[]  = 	   //options menu order
 {   
 delta,
 startdelay,
@@ -558,7 +558,7 @@ void BulbRamp::getModeMenu(char buffer[])
 void BulbRamp::getOptionMenu(char buffer[])
 {
 	 //reads the timeSelectMenu options from flash memory
-	 strcpy_P(buffer, (const prog_char *)pgm_read_word(&(bulbOptionMenu[select_])));
+	 strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(bulbOptionMenu[select_])));
 }
 
 /***********************************************************

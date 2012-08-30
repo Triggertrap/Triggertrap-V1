@@ -51,7 +51,7 @@
 #include <utility/light.h>
 #include <utility/trigger.h>
 #include <utility/sound.h>
-#include <utility/timeLapse.h>
+#include <utility/timelapse.h>
 #include <utility/bulbRamp.h>
 #include <auxiliary.h>
 

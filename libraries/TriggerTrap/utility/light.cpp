@@ -37,7 +37,7 @@ int const LIGHT_CHANGE_MODE = 2;
 //Menu Sensor Strings
 
    //Mode Menu Listing
-   const prog_char lightMenu[] PROGMEM= {"Light"};
+   const char PROGMEM lightMenu[]= {"Light"};
 
   Light::Light() 
   {

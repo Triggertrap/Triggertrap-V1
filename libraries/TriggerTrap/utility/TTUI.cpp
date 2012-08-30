@@ -30,15 +30,15 @@
 #include <TTUI.h>
 
 	//System Mode Menu Listing
-    const prog_char systemModeMenu[] PROGMEM= {"System"};
+    const char PROGMEM systemModeMenu[]= {"System"};
 
 	 //System Option Menus
-	const prog_char systemFocus[] PROGMEM="Focus";
-	const prog_char systemShutter[] PROGMEM = "Shutter";
-	const prog_char systemIR[] PROGMEM="IRremote";
-	const prog_char systemContrast[] PROGMEM="Contrast";
+	const char PROGMEM systemFocus[]="Focus";
+	const char PROGMEM systemShutter[] = "Shutter";
+	const char PROGMEM systemIR[]="IRremote";
+	const char PROGMEM systemContrast[]="Contrast";
 
-	const prog_char * systemOptionMenu[] PROGMEM  = 	//options menu
+	const char PROGMEM * const systemOptionMenu[]  = 	//options menu
 	{   	
 	systemFocus,
 	systemShutter,
@@ -775,7 +775,7 @@ void TTUI::getSystemModeMenu(char buffer[])
 
 void TTUI::getSystemOptionMenu(char buffer[])
 {
-	strcpy_P(buffer, (const prog_char *)pgm_read_word(&(systemOptionMenu[incSystemOption]))); 
+	strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(systemOptionMenu[incSystemOption]))); 
 }
 
 void TTUI::setSystemSettingMenu(char buffer[],int change)

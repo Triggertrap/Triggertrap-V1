@@ -30,14 +30,14 @@
 #include "timelapse.h"
 
 //mode menu title
-const prog_char timeMenu[] PROGMEM= {"TimeLaps"};
+const char PROGMEM timeMenu[]= {"TimeLaps"};
 
  //option Menu titles
-const prog_char delta[] PROGMEM="interval";
-const prog_char startdelay[] PROGMEM="delay1st";
-const prog_char numShots[] PROGMEM = "#shots";
+const char PROGMEM delta[]="interval";
+const char PROGMEM startdelay[]="delay1st";
+const char PROGMEM numShots[] = "#shots";
 
-const prog_char * timeSelectMenu[] PROGMEM  = 	   //options menu order
+const char PROGMEM * const timeSelectMenu[]  = 	   //options menu order
 {   
 delta,
 startdelay,
@@ -365,7 +365,7 @@ void TimeLapse::getModeMenu(char buffer[])
 void TimeLapse::getOptionMenu(char buffer[])
 {
 	 //reads the timeSelectMenu options from flash memory
-	 strcpy_P(buffer, (const prog_char *)pgm_read_word(&(timeSelectMenu[select_])));
+	 strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(timeSelectMenu[select_])));
 }
 
 /***********************************************************

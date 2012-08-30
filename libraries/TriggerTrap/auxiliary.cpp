@@ -52,12 +52,12 @@ int const AUX_FALL_MODE = 1;
 int const AUX_CHANGE_MODE = 2;
 
 //Mode Menu Listing, saved in flash mem
-const prog_char auxMenu[] PROGMEM= {"Aux"};
+const char PROGMEM auxMenu[] = {"Aux"};
 
  //Option Menu titles, saved in flash mem
-const prog_char trigType[] PROGMEM="type";
-const prog_char trigDelay[] PROGMEM="delay";
-const prog_char trigThreshold[] PROGMEM = "threshold";
+const char PROGMEM trigType[] ="type";
+const char PROGMEM trigDelay[] ="delay";
+const char PROGMEM trigThreshold[] = "threshold";
 
 
   Aux::Aux() 

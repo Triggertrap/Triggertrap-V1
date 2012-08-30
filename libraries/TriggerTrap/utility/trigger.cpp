@@ -32,14 +32,14 @@
 #include "trigger.h"
 
 //default active status message
-const prog_char activeMessage[] PROGMEM= {"Armed"};
+const char PROGMEM activeMessage[]= {"Armed"};
 
  //Option Menu default
-const prog_char trigThreshold[] PROGMEM = "threshld";
-const prog_char trigDelay[] PROGMEM="delay";
-const prog_char trigType[] PROGMEM="type";
+const char PROGMEM trigThreshold[] = "threshld";
+const char PROGMEM trigDelay[]="delay";
+const char PROGMEM trigType[]="type";
 
-const prog_char * selectMenu[] PROGMEM  = 	   //options menu
+const char PROGMEM * const selectMenu[]  = 	   //options menu
 {   
 trigThreshold,	
 trigDelay,
@@ -48,12 +48,12 @@ trigType,
 
 
  //Value setting titles for values that are not just numbers (ex. type option)
-const prog_char onRise[] PROGMEM="On Rise";
-const prog_char onFall[] PROGMEM="On Fall";	
-const prog_char onChange[] PROGMEM="On Chnge";
+const char PROGMEM onRise[]="On Rise";
+const char PROGMEM onFall[]="On Fall";	
+const char PROGMEM onChange[]="On Chnge";
 
 
-const prog_char * settingMenu[] PROGMEM  = 	   // select menu options
+const char PROGMEM * const settingMenu[]  = 	   // select menu options
 {   
 onRise,onFall,onChange
 };
@@ -776,7 +776,7 @@ void Trigger::IRTransmit()
  ***********************************************************/
   void Trigger::getOptionMenu(char buffer[])
   {
-	 strcpy_P(buffer, (const prog_char *)pgm_read_word(&(selectMenu[select_])));
+	 strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(selectMenu[select_])));
   }
 
 /***********************************************************
@@ -788,7 +788,7 @@ void Trigger::IRTransmit()
  ***********************************************************/
   void Trigger::getSettingMenu(char buffer[])
   {
-	strcpy_P(buffer, (const prog_char *)pgm_read_word(&(settingMenu[option(TRIG_TYPE)]))); 
+	strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(settingMenu[option(TRIG_TYPE)]))); 
   }
 
 /***********************************************************

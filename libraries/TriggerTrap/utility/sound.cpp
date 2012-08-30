@@ -34,13 +34,13 @@
 //Menu Sensor Strings
 
    //Mode Menu Listing
-   const prog_char soundMenu[] PROGMEM= {"Sound"};
+   const char PROGMEM soundMenu[]= {"Sound"};
    
 	 //Option Menu default
-	const prog_char soundThreshold[] PROGMEM = "threshld";
-	const prog_char soundDelay[] PROGMEM="delay";
+	const char PROGMEM soundThreshold[] = "threshld";
+	const char PROGMEM soundDelay[]="delay";
 
-	const prog_char * soundOptionMenu[] PROGMEM  = 	   //options menu
+	const char PROGMEM * const soundOptionMenu[]  = 	   //options menu
 	{   
 	soundThreshold,	
 	soundDelay,
@@ -115,7 +115,7 @@
 void Sound::getOptionMenu(char buffer[])
 {
 	 //reads the timeSelectMenu options from flash memory
-	 strcpy_P(buffer, (const prog_char *)pgm_read_word(&(soundOptionMenu[select_])));
+	 strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(soundOptionMenu[select_])));
 }
 
 void Sound::getModeMenu(char buffer[])

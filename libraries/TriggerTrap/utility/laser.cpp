@@ -37,25 +37,25 @@ int const CHANGE_LASER_MODE = 2;
    //Menu Sensor Strings
 
    //Mode Menu Listing
-   const prog_char laserMenu[] PROGMEM= {"Laser"};
+   const char PROGMEM laserMenu[]= {"Laser"};
 
 	 //Option Menu default
-	const prog_char laserType[] PROGMEM = "type";
-	const prog_char laserDelay[] PROGMEM="delay";
+	const char PROGMEM laserType[] = "type";
+	const char PROGMEM laserDelay[]="delay";
 
-	const prog_char * laserOptionMenu[] PROGMEM  = 	   //options menu
+	const char PROGMEM * const laserOptionMenu[]  = 	   //options menu
 	{   
 	laserType,	
 	laserDelay,
 	};
 
 
- const prog_char onMake[] PROGMEM="On Make";
- const prog_char onBreak[] PROGMEM="On Break";	
- const prog_char onChange[] PROGMEM="On Chnge";
+ const char PROGMEM onMake[]="On Make";
+ const char PROGMEM onBreak[]="On Break";	
+ const char PROGMEM onChange[]="On Chnge";
 
 
-const prog_char * laserSettingMenu[] PROGMEM  = 	   // setting menu options
+const char PROGMEM * const laserSettingMenu[]  = 	   // setting menu options
 {   
 	onMake,onBreak,onChange
 };
@@ -314,12 +314,12 @@ void Laser::getModeMenu(char buffer[])
 void Laser::getOptionMenu(char buffer[])
 {
 	 //reads the timeSelectMenu options from flash memory
-	 strcpy_P(buffer, (const prog_char *)pgm_read_word(&(laserOptionMenu[select_])));
+	 strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(laserOptionMenu[select_])));
 }
 
 void Laser::getSettingMenu(char buffer[])
 {
-	strcpy_P(buffer, (const prog_char *)pgm_read_word(&(laserSettingMenu[option(LASER_TYPE)]))); 
+	strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(laserSettingMenu[option(LASER_TYPE)]))); 
 }
 
 /***********************************************************
