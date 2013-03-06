@@ -5,7 +5,7 @@
  *              : Michael Grant  / NoMi Design - http://n0m1.com
  *              : Haje Jan Kamps / Triggertrap - http://triggertrap.com                        
  *      Updated : July 16, 2012                                    
- *      Version : 0.3.35                                              
+ *      Version : 0.3.36                                              
  * 	Notes   : Triggertrap code for Triggertrap Device and Triggertrap Shield for Arduino. 
  *                For more information see Triggertrap.com and github.com/triggertrap
  * 

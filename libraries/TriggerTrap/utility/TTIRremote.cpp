@@ -231,7 +231,8 @@ void IRsend::space(int time) {
    //TCCR2A &= ~(_BV(COM2A1)); // Disable pin 3 PWM output // ?kraz
 #endif 
 
- delayMicroseconds(time);
+ delayMicroseconds(time/2); // divide and conquer to prevent function overflow on TTvk with Nikon - v0.3.36
+ delayMicroseconds(time/2); // divide and conquer to prevent function overflow on TTvk with Nikon - v0.3.36
 }
 
 void IRsend::enableIROut(int khz) {

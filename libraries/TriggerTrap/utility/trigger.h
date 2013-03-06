@@ -222,7 +222,7 @@ void resetFocus(boolean resetNow);
  * set the amount of time the pin goes low in ms.
  * 
  ***********************************************************/
-void setTriggerPulseTime(int focusPulseTime, int shutterPulseTime); 
+void setTriggerPulseTime(unsigned long focusPulseTime, unsigned long shutterPulseTime); 
 
 /***********************************************************
  * 
@@ -362,8 +362,8 @@ protected:
   boolean IRReady;
   boolean abortTrigger;  //stop the trigger action. example, all timelapse shots finished 
   
-  int shutterPulseTime_; //the time shutter pin is low 
-  int focusPulseTime_;
+  unsigned long shutterPulseTime_; //the time shutter pin is low 
+  unsigned long focusPulseTime_;
 
   unsigned long shutterDelay; //keep track of the time the shutter has been low
   unsigned long focusDelay; //keep track of the time the focus has been low
@@ -494,6 +494,16 @@ void decOption(int menuOption, unsigned int maxValue,int dec=1);
  * 
  ***********************************************************/
 void formatTimeString(unsigned int data, char buffer[]);
+
+  /***********************************************************
+ * 
+ * formatTimeStringLapse
+ *
+ * format seconds into minutes and seconds place in char buffer. 
+ * 
+ ***********************************************************/
+void formatTimeStringLapse(unsigned int data, char buffer[]);
+
  
  /***********************************************************
  * 

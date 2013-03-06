@@ -30,24 +30,28 @@
 #include "timelapse.h"
 
 //mode menu title
-const char PROGMEM timeMenu[]= {"TimeLaps"};
+const prog_char timeMenu[] PROGMEM= {"TimeLaps"};
 
  //option Menu titles
-const char PROGMEM delta[]="interval";
-const char PROGMEM startdelay[]="delay1st";
-const char PROGMEM numShots[] = "#shots";
+const prog_char delta[] PROGMEM="interval";
+const prog_char startdelay[] PROGMEM="delay1st";
+const prog_char numShots[] PROGMEM = "#shots";
+const prog_char exposure[] PROGMEM = "exposure";
 
-const char PROGMEM * const timeSelectMenu[]  = 	   //options menu order
+const prog_char * timeSelectMenu[] PROGMEM  = 	   //options menu order
 {   
 delta,
 startdelay,
 numShots,
+exposure,
 };
 
 //option order should match timeSelectMenu order
 const int TIME_DELTA = 0;
 const int TIME_DELAY = 1; 
 const int TIME_NUMSHOTS = 2;
+const int TIME_EXPOSURE = 3;
+const int MAX_DELTA = 60000;
 
 /***********************************************************
  * 
@@ -58,12 +62,13 @@ const int TIME_NUMSHOTS = 2;
  ***********************************************************/
 TimeLapse::TimeLapse(){
 	
-		maxOptionMenu = 3;
+		maxOptionMenu = 4;
 	    triggerState_ = false; //off
 		abortTrigger = false; 
 		setOption(TIME_DELTA,0);    //set time delta to 0
 		setOption(TIME_DELAY,0);    //set time delay to 0
 		setOption(TIME_NUMSHOTS,0); //set #shots to 0
+		setOption(TIME_EXPOSURE,0); //set exposure to 0
 		delayCount = 0; 
 		select_ = 0;  //set 
 		focusPulseTime_ = DEFAULT_FOCUS_TIME;
@@ -125,6 +130,12 @@ boolean TimeLapse::trigger()
    }
 
     remainTime = countDown(); //get the remaining time to next shot
+
+	if (option(TIME_EXPOSURE) > 0)
+	{
+		shutterPulseTime_ = (unsigned long)option(TIME_EXPOSURE);
+		shutterPulseTime_ = shutterPulseTime_ * 1000;
+	}
 
     //-------------Delay
 	if(delayFirstShot() == true)
@@ -192,8 +203,10 @@ unsigned long TimeLapse::countDown()
 			
       unsigned long elapsedTime = currentTime - startBttnTime;
 	  unsigned long deltaTime =	(unsigned long) option(TIME_DELTA);
-	  deltaTime = deltaTime*1000;
-	  unsigned long remainTime = deltaTime - elapsedTime;
+	  deltaTime = deltaTime*100;
+	  unsigned long expoTime = (unsigned long) option(TIME_EXPOSURE);
+	  expoTime = expoTime * 1000;
+	  unsigned long remainTime = expoTime + deltaTime - elapsedTime;
 	
 	return remainTime;
 
@@ -232,7 +245,7 @@ void TimeLapse::decSetting(char buffer[],int dec)
 		switch (select_)
 	    {
 	     case TIME_DELAY:
-	 	  decOption(TIME_DELAY, 54000,dec); //max time in secs
+	 	  decOption(TIME_DELAY, MAX_DELTA,dec); //max time in secs
 		  if(option(TIME_DELAY) == 0) //delay 0 is infinity 
 		  {
 				buffer[0] = 0;
@@ -241,11 +254,11 @@ void TimeLapse::decSetting(char buffer[],int dec)
 		  }
 		  else
 		  {	
-		   		formatTimeString(option(TIME_DELAY),buffer); //format and save string in buffer
+		   		formatTimeStringLapse(option(TIME_DELAY),buffer); //format and save string in buffer
 		  }
 	      break;
 	    case TIME_DELTA:
-	      decOption(TIME_DELTA, 54000,dec); //max time in secs
+	      decOption(TIME_DELTA, MAX_DELTA,dec); //max time in secs
 		  if(option(TIME_DELTA) == 0) //delay 0 is none 
 		  {
 				buffer[0] = 0;
@@ -254,7 +267,7 @@ void TimeLapse::decSetting(char buffer[],int dec)
 		  }
 		  else
 		  {
-	 	  	formatTimeString(option(TIME_DELTA),buffer);
+	 	  	formatTimeStringLapse(option(TIME_DELTA),buffer);
       	  }
 	      break;
 	    case TIME_NUMSHOTS:
@@ -273,6 +286,19 @@ void TimeLapse::decSetting(char buffer[],int dec)
 	 	  	utoa (option(TIME_NUMSHOTS),buffer,10);
       	  }	
 		  
+	      break;
+		  case TIME_EXPOSURE:
+	      decOption(TIME_EXPOSURE, 600,dec); //max time in secs
+		  if(option(TIME_EXPOSURE) == 0) //delay 0 is none 
+		  {
+				buffer[0] = 0;
+				strcat(buffer,"Bulb off");
+				strcat(buffer,"\0");
+		  }
+		  else
+		  {
+	 	  	formatTimeString(option(TIME_EXPOSURE),buffer);
+      	  }
 	      break;
 	    default: 
 	      break;
@@ -294,7 +320,7 @@ void TimeLapse::incSetting(char buffer[],int inc)
 		switch (select_)
 	    {
 	     case TIME_DELAY:
-	 	   incOption(TIME_DELAY, 54000,inc); //max secs
+	 	   incOption(TIME_DELAY, MAX_DELTA,inc); //max secs
 		  if(option(TIME_DELAY) == 0) //delay 0 is infinity 
 		  {
 				buffer[0] = 0;
@@ -303,11 +329,11 @@ void TimeLapse::incSetting(char buffer[],int inc)
 		  }
 		  else
 		  {	
-		   		formatTimeString(option(TIME_DELAY),buffer); 
+		   		formatTimeStringLapse(option(TIME_DELAY),buffer); 
 		  }
 	      break;
 	    case TIME_DELTA:
-	      incOption(TIME_DELTA, 54000,inc);
+	      incOption(TIME_DELTA, MAX_DELTA,inc);
 		  if(option(TIME_DELTA) == 0) //delay 0 is none
 		  {
 				buffer[0] = 0;
@@ -316,7 +342,7 @@ void TimeLapse::incSetting(char buffer[],int inc)
 		  }
 		  else
 		  { 
-	 	  	formatTimeString(option(TIME_DELTA),buffer);
+	 	  	formatTimeStringLapse(option(TIME_DELTA),buffer);
 	      }
 		  break;
 	    case TIME_NUMSHOTS:
@@ -333,6 +359,19 @@ void TimeLapse::incSetting(char buffer[],int inc)
 		  else
 		  {
 	 	  	utoa (option(TIME_NUMSHOTS),buffer,10);
+      	  }
+	      break;
+		  case TIME_EXPOSURE:
+	      incOption(TIME_EXPOSURE, 600,inc); //max time in secs
+		  if(option(TIME_EXPOSURE) == 0) //delay 0 is none 
+		  {
+				buffer[0] = 0;
+				strcat(buffer,"Bulb off");
+				strcat(buffer,"\0");
+		  }
+		  else
+		  {
+	 	  	formatTimeString(option(TIME_EXPOSURE),buffer);
       	  }
 	      break;
 	    default: 
@@ -365,7 +404,7 @@ void TimeLapse::getModeMenu(char buffer[])
 void TimeLapse::getOptionMenu(char buffer[])
 {
 	 //reads the timeSelectMenu options from flash memory
-	 strcpy_P(buffer, (const char PROGMEM *)pgm_read_word(&(timeSelectMenu[select_])));
+	 strcpy_P(buffer, (const prog_char *)pgm_read_word(&(timeSelectMenu[select_])));
 }
 
 /***********************************************************
